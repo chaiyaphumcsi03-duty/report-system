@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แบบฟอร์มรับแจ้งเหตุ</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Sarabun', sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="date"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d0d5dd;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    input[type="file"] {
+      font-size: 14px;
+    }
+    .hint {
+      font-size: 12px;
+      color: #666;
+    }
+    .traffic-message {
+      margin-top: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #fff7e6;
+      border: 1px solid #ffd28a;
+      font-size: 13px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>แบบฟอร์มรับแจ้งเหตุ</h1>
+
+    <form
+      id="reportForm"
+      action="https://script.google.com/macros/s/AKfycby_gA0vodN6ZEIXVeut-RNUO7GrVaT1hdqnUDWi-EQ1gTsLt1TdQTlhAOxvpXvdH5A-iw/exec"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="hidden" name="mode" value="submit" />
+
+      <div class="field">
+        <label for="station">สถานีตำรวจ</label>
+        <select name="station" id="station" required>
+          <option value="">-- เลือกสถานีตำรวจ --</option>
+
+          <option>สภ.คอนสาร</option>
+          <option>สภ.เกษตรสมบูณ์</option>
+          <option>สภ.ภูเขียว</option>
+          <option>ส.บ้านแท่น</option>
+          <option>สภ.หนองบัวแดง</option>
+          <option>สภ.แก้งคร้อ</option>
+          <option>สภ.คอนสวรรค์</option>
+          <option>สภ.บ้านเป้า</option>
+          <option>สภ.บ้านเดื่อ</option>
+          <option>สภ.บ้านแก้ง</option>
+          <option>สภ.บ้านเพชร</option>
+          <option>สภ.โนนเหม่า</option>
+          <option>สภ.หนองสังข์</option>
+          <option>สภ.ช่องสามหมอ</option>
+          <option>สภ.ห้วยยาง</option>
+
+          <option>สภ.บ้านเขว้า</option>
+          <option>สภ.หนองบัวระหว</option>
+          <option>สภ.จัตุรัส</option>
+          <option>สภ.ซับใหญ่</option>
+          <option>สภ.บำเหน็จณรงค์</option>
+          <option>สภ.เนินสง่า</option>
+          <option>สภ.เทพสถิต</option>
+          <option>สภ.ภักดีชุมพล</option>
+          <option>สภ.บ้านค่าย</option>
+          <option>สภ.ลาดใหญ่</option>
+          <option>สภ.วังตะเฆ่</option>
+          <option>สภ.หัวทะเล</option>
+          <option>สภ.หนองบัวโคก</option>
+
+          <option>สภ.เมืองชัยภูมิ</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="docNo">เลขที่หนังสือนำส่ง</label>
+        <input type="text" id="docNo" name="docNo" required />
+      </div>
+
+      <div class="field">
+        <label for="docDate">ลงวันที่หนังสือ</label>
+        <input type="date" id="docDate" name="docDate" required />
+      </div>
+
+      <div class="field">
+        <label for="caseType">ประเภทคดี</label>
+        <select name="caseType" id="caseType" required>
+          <option value="">-- เลือกประเภทคดี --</option>
+          <option>คดีเกี่ยวกับจราจร</option>
+          <option>คดีเกี่ยวกับชีวิต</option>
+          <option>คดีเกี่ยวกับเพลิงไหม้</option>
+          <option>คดีเกี่ยวกับทรัพย์</option>
+        </select>
+        <div id="trafficMessage" class="traffic-message" style="display:none;"></div>
+      </div>
+
+      <div class="field">
+        <label for="investigator">ชื่อพนักงานสอบสวน</label>
+        <input type="text" id="investigator" name="investigator" required />
+      </div>
+
+      <div class="field">
+        <label for="phone">เบอร์โทรติดต่อ</label>
+        <input type="tel" id="phone" name="phone" required />
+      </div>
+
+      <div class="field">
+        <label for="detail">รายละเอียดเพิ่มเติม</label>
+        <textarea id="detail" name="detail"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="attachment">ไฟล์แนบ</label>
+        <input
+          type="file"
+          id="attachment"
+          name="attachment"
+          accept="image/*,application/pdf,.doc,.docx"
+        />
+      </div>
+
+      <div style="text-align:center; margin-top:24px;">
+        <button type="submit">ส่งข้อมูลรับแจ้งเหตุ</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const TRAFFIC_DATE_GROUP1 = '10 มกราคม 2569';
+    const TRAFFIC_DATE_GROUP2 = '20 มกราคม 2569';
+
+    const group1Stations = [
+      'สภ.คอนสาร','สภ.เกษตรสมบูณ์','สภ.ภูเขียว','ส.บ้านแท่น','สภ.หนองบัวแดง',
+      'สภ.แก้งคร้อ','สภ.คอนสวรรค์','สภ.บ้านเป้า','สภ.บ้านเดื่อ','สภ.บ้านแก้ง',
+      'สภ.บ้านเพชร','สภ.โนนเหม่า','สภ.หนองสังข์','สภ.ช่องสามหมอ','สภ.ห้วยยาง'
+    ];
+
+    const group2Stations = [
+      'สภ.บ้านเขว้า','สภ.หนองบัวระหว','สภ.จัตุรัส','สภ.ซับใหญ่','สภ.บำเหน็จณรงค์',
+      'สภ.เนินสง่า','สภ.เทพสถิต','สภ.อภักดีชุมพล','สภ.บ้านค่าย','สภ.ลาดใหญ่',
+      'สภ.วังตะเฆ่','สภ.หัวทะเล','สภ.หนองบัวโคก'
+    ];
+
+    const caseTypeEl = document.getElementById('caseType');
+    const stationEl = document.getElementById('station');
+    const trafficMsgEl = document.getElementById('trafficMessage');
+
+    function updateTrafficMessage() {
+      const caseType = caseTypeEl.value;
+      const station = stationEl.value;
+
+      if (caseType !== 'คดีเกี่ยวกับจราจร') {
+        trafficMsgEl.style.display = 'none';
+        trafficMsgEl.textContent = '';
+        return;
+      }
+
+      if (!station) {
+        trafficMsgEl.style.display = 'block';
+        trafficMsgEl.textContent =
+          'โปรดเลือกสถานีตำรวจเพื่อแสดงวัน เดือน ปี ที่ออกตรวจ';
+        return;
+      }
+
+      if (group1Stations.includes(station)) {
+        trafficMsgEl.style.display = 'block';
+        trafficMsgEl.textContent = 'กำหนดวันออกตรวจ: ' + TRAFFIC_DATE_GROUP1;
+      } else if (group2Stations.includes(station)) {
+        trafficMsgEl.style.display = 'block';
+        trafficMsgEl.textContent = 'กำหนดวันออกตรวจ: ' + TRAFFIC_DATE_GROUP2;
+      } else if (station === 'สภ.เมืองชัยภูมิ') {
+        trafficMsgEl.style.display = 'block';
+        trafficMsgEl.textContent = 'สถานีนี้ไม่ได้กำหนดวันที่ออกตรวจ';
+      }
+    }
+
+    caseTypeEl.addEventListener('change', updateTrafficMessage);
+    stationEl.addEventListener('change', updateTrafficMessage);
+  </script>
+</body>
+</html>
