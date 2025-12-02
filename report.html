@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>แบบฟอร์มรับแจ้งเหตุ</title>
+
   <style>
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Sarabun', sans-serif;
+      font-family: 'Sarabun', system-ui, sans-serif;
       background: #f5f7fb;
       margin: 0;
       padding: 20px;
@@ -50,10 +51,6 @@
     input[type="file"] {
       font-size: 14px;
     }
-    .hint {
-      font-size: 12px;
-      color: #666;
-    }
     .traffic-message {
       margin-top: 8px;
       padding: 10px;
@@ -76,21 +73,24 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>แบบฟอร์มรับแจ้งเหตุ</h1>
 
     <form
       id="reportForm"
-      action=https://script.google.com/macros/s/AKfycbyiuU10tm3YouDhv-DBlJE2kVt9MboD9mPOr_cU_r6fjgq-jLZw4eHOPSsb1e4bl_tK9Q/exec"
+      action="https://script.google.com/macros/s/AKfycbyygTVtdSWSvupqaQuTC3S40W6WNi5RhCY_HcsrEiY3AvKmkpwVBZ_c-moJCWUdgVSjzg/exec"
       method="post"
       enctype="multipart/form-data"
     >
+
       <input type="hidden" name="mode" value="submit" />
 
+      <!-- สถานีตำรวจ -->
       <div class="field">
-        <label for="station">สถานีตำรวจ</label>
-        <select name="station" id="station" required>
+        <label>สถานีตำรวจ</label>
+        <select name="station" required>
           <option value="">-- เลือกสถานีตำรวจ --</option>
 
           <option>สภ.คอนสาร</option>
@@ -127,18 +127,21 @@
         </select>
       </div>
 
+      <!-- เลขหนังสือ -->
       <div class="field">
-        <label for="docNo">เลขที่หนังสือนำส่ง</label>
-        <input type="text" id="docNo" name="docNo" required />
+        <label>เลขที่หนังสือนำส่ง</label>
+        <input type="text" name="docNo" required />
       </div>
 
+      <!-- ลงวันที่ -->
       <div class="field">
-        <label for="docDate">ลงวันที่หนังสือ</label>
-        <input type="date" id="docDate" name="docDate" required />
+        <label>ลงวันที่</label>
+        <input type="date" name="docDate" required />
       </div>
 
+      <!-- ประเภทคดี -->
       <div class="field">
-        <label for="caseType">ประเภทคดี</label>
+        <label>ประเภทคดี</label>
         <select name="caseType" id="caseType" required>
           <option value="">-- เลือกประเภทคดี --</option>
           <option>คดีเกี่ยวกับจราจร</option>
@@ -149,32 +152,32 @@
         <div id="trafficMessage" class="traffic-message" style="display:none;"></div>
       </div>
 
+      <!-- พนักงานสอบสวน -->
       <div class="field">
-        <label for="investigator">ชื่อพนักงานสอบสวน</label>
-        <input type="text" id="investigator" name="investigator" required />
+        <label>ชื่อพนักงานสอบสวน</label>
+        <input type="text" name="investigator" required />
       </div>
 
+      <!-- เบอร์โทร -->
       <div class="field">
-        <label for="phone">เบอร์โทรติดต่อ</label>
-        <input type="tel" id="phone" name="phone" required />
+        <label>เบอร์โทรติดต่อ</label>
+        <input type="tel" name="phone" required />
       </div>
 
+      <!-- รายละเอียด -->
       <div class="field">
-        <label for="detail">รายละเอียดเพิ่มเติม</label>
-        <textarea id="detail" name="detail"></textarea>
+        <label>รายละเอียดเพิ่มเติม</label>
+        <textarea name="detail"></textarea>
       </div>
 
+      <!-- ไฟล์แนบ -->
       <div class="field">
-        <label for="attachment">ไฟล์แนบ</label>
-        <input
-          type="file"
-          id="attachment"
-          name="attachment"
-          accept="image/*,application/pdf,.doc,.docx"
-        />
+        <label>ไฟล์แนบ</label>
+        <input type="file" name="attachment"
+               accept="image/*,application/pdf,.doc,.docx" />
       </div>
 
-      <div style="text-align:center; margin-top:24px;">
+      <div style="text-align:center; margin-top:20px;">
         <button type="submit">ส่งข้อมูลรับแจ้งเหตุ</button>
       </div>
     </form>
@@ -197,7 +200,7 @@
     ];
 
     const caseTypeEl = document.getElementById('caseType');
-    const stationEl = document.getElementById('station');
+    const stationEl = document.getElementsByName('station')[0];
     const trafficMsgEl = document.getElementById('trafficMessage');
 
     function updateTrafficMessage() {
@@ -206,14 +209,12 @@
 
       if (caseType !== 'คดีเกี่ยวกับจราจร') {
         trafficMsgEl.style.display = 'none';
-        trafficMsgEl.textContent = '';
         return;
       }
 
       if (!station) {
         trafficMsgEl.style.display = 'block';
-        trafficMsgEl.textContent =
-          'โปรดเลือกสถานีตำรวจเพื่อแสดงวัน เดือน ปี ที่ออกตรวจ';
+        trafficMsgEl.textContent = 'โปรดเลือกสถานีตำรวจเพื่อแสดงวันตรวจ';
         return;
       }
 
@@ -234,4 +235,3 @@
   </script>
 </body>
 </html>
-
